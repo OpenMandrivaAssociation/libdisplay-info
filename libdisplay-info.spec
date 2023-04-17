@@ -11,6 +11,7 @@ URL: https://emersion.pages.freedesktop.org/libdisplay-info/
 License: MIT
 Group: System/Libraries
 BuildRequires: meson
+BuildRequires: pkgconfig(hwdata)
 
 %description
 EDID and DisplayID library.
