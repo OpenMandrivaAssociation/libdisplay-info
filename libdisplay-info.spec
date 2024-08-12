@@ -3,7 +3,7 @@
 %define devname %mklibname display-info -d
 
 Name: libdisplay-info
-Version: 0.1.1
+Version: 0.2.0
 Release: 1
 Source0: https://gitlab.freedesktop.org/emersion/libdisplay-info/-/archive/%{version}/libdisplay-info-%{version}.tar.bz2
 Summary: EDID and DisplayID library
