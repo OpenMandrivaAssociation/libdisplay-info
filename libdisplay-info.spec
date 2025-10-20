@@ -1,16 +1,21 @@
-%define major 2
+%ifarch %{x86_64}
+# Used by mesa >= 25.3
+%bcond_without compat32
+%endif
+
+%define major 3
 %define libname %mklibname display-info
 %define devname %mklibname display-info -d
 
 Name: libdisplay-info
-Version: 0.2.0
+Version: 0.3.0
 Release: 1
 Source0: https://gitlab.freedesktop.org/emersion/libdisplay-info/-/archive/%{version}/libdisplay-info-%{version}.tar.bz2
 Summary: EDID and DisplayID library
 URL: https://emersion.pages.freedesktop.org/libdisplay-info/
 License: MIT
 Group: System/Libraries
-BuildRequires: meson
+BuildSystem: meson
 BuildRequires: pkgconfig(hwdata)
 
 %description
@@ -45,18 +50,11 @@ Requires: %{libname} = %{EVRD}
 %description -n %{devname}
 Development files (Headers etc.) for %{name}.
 
-%prep
-%autosetup -p1
-%meson
-
-%build
-%meson_build
-
-%install
-%meson_install
-
 %files
 %{_bindir}/*
+%if %{with compat32}
+%{_prefix}/lib/*.so.*
+%endif
 
 %files -n %{libname}
 %{_libdir}/*.so.0*
@@ -66,3 +64,7 @@ Development files (Headers etc.) for %{name}.
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
+%if %{with compat32}
+%{_prefix}/lib/pkgconfig/*
+%{_prefix}/lib/*.so
+%endif
